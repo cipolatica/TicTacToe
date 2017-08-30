@@ -1,0 +1,37 @@
+About:
+This Tic Tac Toe game was created for simple play involving 2 players. To win, players place 3 of their 
+letters, X or O, in a line. A line can be vertical, horizontal, or diagonal. A game is over when a player
+wins or all the squares have been selected and there is no winner (tie). Players can choose to play again
+by selecting the "Play again" button after a game has completed.
+
+Steps to launch game:
+1. Open TicTacToe.xcodeproj within Xcode
+2. Select the iOS device and version you wish to use on simulator
+3. Click the play button within Xcode
+4. Enjoy the game on simulator!
+
+Scalability:
+Even though this game is played on a 3x3 board, the game logic within the AMPGameModel object can handle 
+NxN size boards. This even includes the ability to check when there is a winner based on various sized
+boards. This logic runs in O(n) time where n is the length of the board's row and col, not the total 
+amount of cells contained with the board itself. This logic is performed within this AMPGameModel class, 
+rather than the controller, to maintain a MVC design pattern.
+
+This logic could have run in constant time O(1), however, a trade-off would have been the inability to 
+support varying board sizes. Given that O(n) is still very fast when considering row and col length of 
+the board, and the ability to support various board sizes dynamically (i.e 3x3, 4x4, NxN), the O(n) 
+algorithm appears to be the right choice. 
+
+Not only does the logic support various boards sizes, the board itself can draw the separator lines
+required to fit various sizes as well. These separator lines are drawn dynamically onto the board using
+UIViews. Their position is calculated based on the number of rows and cols of the board. To change the 
+size of the board, modify AMPGameRowColLength within AMPGameModel to set row and col length.
+
+Design:
+This game was created using the model view controller (MVC) design pattern. The model (AMPGameModel) 
+contains game logic and state data required to play the game. The  main view object for this application
+is the AMPSquareButton object. This object is used to display both the X and O square images on the board. 
+This class does not keep track of state to follow MVC design patterns. It merely contains row and col 
+NSIntegers to identify its location within the matrix. Lastly, the controller for this application is the
+AMPTicTacToeViewController. It interacts with both the model and views, allowing them to not have 
+knowledge of one another.
